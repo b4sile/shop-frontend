@@ -1,0 +1,26 @@
+.top {
+  h1 {
+    font-size: 36px;
+    line-height: 40px;
+
+    span {
+      font-weight: 300;
+      color: #e7f0f2;
+    }
+  }
+}
+
+.wrapper {
+  padding: 35px 73px 0 76px;
+}
+
+.search {
+  width: 205px;
+  height: 32px;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
