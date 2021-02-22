@@ -1,0 +1,37 @@
+.img {
+  object-fit: contain;
+  height: 150px;
+  width: 100%;
+}
+
+.cart {
+  width: 220px;
+  min-height: 220px;
+  background: rgba(231, 240, 242, 0.3);
+  backdrop-filter: blur(6px);
+  margin: 5px;
+  cursor: pointer;
+  box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.08);
+  transition: opacity 0.5s ease;
+  font-size: 14px;
+  line-height: 19px;
+  display: flex;
+  flex-direction: column;
+  overflow-wrap: break-word;
+
+  &:hover {
+    box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    opacity: 0.8;
+  }
+
+  h2 {
+    margin: 0;
+  }
+}
+
+.bottom {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}

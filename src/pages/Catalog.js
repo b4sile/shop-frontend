@@ -2,7 +2,12 @@ import { Input, InputAdornment } from '@material-ui/core';
 import React from 'react';
 import SearchIcon from '@material-ui/icons/Search';
 import s from './Catalog.module.scss';
-import { CatalogNav, Categories } from '../components';
+import {
+  CatalogNav,
+  Categories,
+  SelectProductsSort,
+  Products,
+} from '../components';
 
 export const Catalog = () => {
   return (
@@ -25,6 +30,10 @@ export const Catalog = () => {
       </div>
       <div className={s.bottom}>
         <Categories />
+        <div className={s.right}>
+          <SelectProductsSort />
+          <Products />
+        </div>
       </div>
     </div>
   );
