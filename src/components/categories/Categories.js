@@ -10,10 +10,7 @@ import cn from 'classnames';
 export const Categories = () => {
   const dispatch = useDispatch();
   const categories = useSelector(({ categories: { items } }) => items);
-  const currentCategory = useSelector(
-    ({ filters: { currentCategory } }) => currentCategory
-  );
-  const isLoading = useSelector(({ categories: { isLoading } }) => isLoading);
+  // const isLoading = useSelector(({ categories: { isLoading } }) => isLoading);
   const { url } = useRouteMatch();
   const { search } = useLocation();
   const { categoryId } = queryString.parse(search);
@@ -29,12 +26,12 @@ export const Categories = () => {
   return (
     <ul className={s.list}>
       <li>
-        <Link className={cn({ [s.active]: !currentCategory })} to={`${url}`}>
+        <Link className={cn({ [s.active]: !categoryId })} to={`${url}`}>
           Все
         </Link>
       </li>
       {categories.map(({ id, name }) => (
-        <li className={cn({ [s.active]: id === currentCategory })} key={id}>
+        <li className={cn({ [s.active]: id === +categoryId })} key={id}>
           <Link to={`${url}?categoryId=${id}`}>{name}</Link>
         </li>
       ))}

@@ -1,0 +1,20 @@
+.images {
+  padding: 10px;
+}
+
+.main {
+  width: 500px;
+  height: 600px;
+}
+
+.usual {
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+}

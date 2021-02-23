@@ -3,9 +3,9 @@ import s from './Price.module.scss';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-export const Price = ({ discount, price, isVertical }) => {
+export const Price = ({ discount, price, isVertical, className }) => {
   return (
-    <div>
+    <div className={cn(className)}>
       {discount > 0 ? (
         <div className={cn(s.prices, { [s.vertical]: isVertical })}>
           <span>{Math.floor(price - (price * discount) / 100)}₽</span>
@@ -26,4 +26,5 @@ Price.propTypes = {
   discount: PropTypes.number.isRequired,
   price: PropTypes.number.isRequired,
   isVertical: PropTypes.bool,
+  className: PropTypes.string,
 };

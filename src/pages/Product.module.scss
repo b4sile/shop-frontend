@@ -1,5 +1,5 @@
 .wrapper {
-  padding: 35px 56px 0 89px;
+  padding: 35px 56px 0 55px;
   display: flex;
   justify-content: space-between;
 }
@@ -17,10 +17,47 @@
   border-right: 1px solid #e7f0f2;
 }
 
-.images {
-  width: 400px;
+.price {
+  margin-top: 50px;
 }
 
 .info {
   flex: 1;
+
+  h2 {
+    margin-top: 115px;
+    margin-bottom: 40px;
+    font-size: 36px;
+    line-height: 40px;
+    color: #363a41;
+  }
+
+  .description {
+    margin-top: 70px;
+    font-size: 14px;
+    line-height: 19px;
+    color: rgba(0, 0, 0, 0.5);
+  }
+}
+
+.group {
+  margin-top: 70px;
+  min-width: 160px;
+  min-height: 40px;
+}
+
+.select {
+  font-size: 24px;
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.button {
+  margin-top: 76px;
+}
+
+.out {
+  margin-top: 70px;
+}
+
+.images {
 }

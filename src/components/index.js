@@ -5,3 +5,6 @@ export { Products } from './products';
 export { ProductCart } from './productCart';
 export { CartButton } from './cartButton';
 export { Price } from './price';
+export { Button } from './button';
+export { Images } from './images';
+export { Block } from './block';
