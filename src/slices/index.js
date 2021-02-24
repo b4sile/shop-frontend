@@ -10,3 +10,5 @@ export {
 } from './filtersSlice';
 
 export { default as productsReducer, fetchProducts } from './productsSlice';
+
+export { default as usersReducer, fetchUserLogin } from './usersSlice';

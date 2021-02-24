@@ -5,6 +5,8 @@ import { TextField, Button as MuiButton } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import { fetchUserLogin } from '../slices';
+import { useDispatch } from 'react-redux';
 
 const validationSchema = yup.object({
   email: yup
@@ -18,6 +20,7 @@ const validationSchema = yup.object({
 });
 
 export const SignIn = () => {
+  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -25,7 +28,7 @@ export const SignIn = () => {
     },
     validationSchema,
     onSubmit: (values) => {
-      console.log(values);
+      dispatch(fetchUserLogin(values));
     },
   });
 

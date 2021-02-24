@@ -12,11 +12,11 @@ const validationSchema = yup.object({
     .required('Email обязателен'),
   firstName: yup
     .string()
-    .min(3, 'Имя слишком короткое')
+    .min(4, 'Имя слишком короткое')
     .required('Имя обязательно'),
   lastName: yup
     .string()
-    .min(1, 'Введите корректную фамилию')
+    .min(4, 'Фамилия слишком короткая')
     .required('Фамилия обязательна'),
   password: yup
     .string()
