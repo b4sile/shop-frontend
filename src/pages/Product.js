@@ -10,10 +10,14 @@ import {
   MenuItem,
   FormHelperText,
   Button as MuiButton,
+  Fab,
 } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
 
 export const Product = () => {
   const [productMeta, setProductMeta] = React.useState(null);
+  const [count, setCount] = React.useState(0);
   const [product, setProduct] = React.useState(null);
   const { id } = useParams();
   const history = useHistory();
@@ -27,9 +31,22 @@ export const Product = () => {
       });
   }, [id]);
 
+  const onAdd = () => {
+    setCount((count) => count + 1);
+  };
+
+  const onRemove = () => {
+    if (count > 1) {
+      setCount((count) => count - 1);
+    }
+  };
+
   const handleChangeSize = (e) => {
     const value = e.target.value;
     setProductMeta(value);
+    if (value.quantity !== 0) {
+      setCount(1);
+    }
   };
 
   const handleSubmit = (e) => {
@@ -37,7 +54,6 @@ export const Product = () => {
     console.log('submit');
   };
 
-  console.log(product);
   console.log(productMeta);
   const { title, description, price, discount, product_meta, images } =
     product || {};
@@ -82,10 +98,23 @@ export const Product = () => {
                       В наличии: {productMeta.quantity}
                     </FormHelperText>
                   )}
+                  <div className={s.count}>
+                    <Fab disabled={count <= 1} onClick={onRemove} size="small">
+                      <RemoveIcon />
+                    </Fab>
+                    <div>{count}</div>
+                    <Fab
+                      disabled={!productMeta || productMeta.quantity === count}
+                      onClick={onAdd}
+                      size="small"
+                    >
+                      <AddIcon />
+                    </Fab>
+                  </div>
+                  <Button type="submit" className={s.button}>
+                    Добавить в корзину
+                  </Button>
                 </FormControl>
-                <Button type="submit" className={s.button}>
-                  Добавить в корзину
-                </Button>
               </form>
             ) : (
               <div className={s.out}>Информации о данном товаре еще нет.</div>

@@ -11,4 +11,9 @@ export {
 
 export { default as productsReducer, fetchProducts } from './productsSlice';
 
-export { default as usersReducer, fetchUserLogin } from './usersSlice';
+export {
+  default as usersReducer,
+  fetchUserLogin,
+  fetchUserData,
+  clearUser,
+} from './usersSlice';

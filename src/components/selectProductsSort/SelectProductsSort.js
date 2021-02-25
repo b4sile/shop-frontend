@@ -1,6 +1,6 @@
 import React from 'react';
 import { NativeSelect } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setSortBy } from '../../slices';
 import s from './SelectProductsSort.module.scss';
 
@@ -15,11 +15,10 @@ const items = [
 
 export const SelectProductsSort = () => {
   const dispatch = useDispatch();
-  const [sortOn, setSortOn] = React.useState('');
+  const { sortBy } = useSelector(({ filters }) => filters);
 
   const handleChangeSortBy = (e) => {
     const value = e.target.value;
-    setSortOn(value);
     dispatch(setSortBy(value));
   };
 
@@ -27,7 +26,7 @@ export const SelectProductsSort = () => {
     <>
       <NativeSelect
         className={s.select}
-        value={sortOn}
+        value={sortBy}
         onChange={handleChangeSortBy}
       >
         <option value="" disabled>

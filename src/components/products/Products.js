@@ -4,25 +4,25 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ProductCart } from '../../components';
 import s from './Products.module.scss';
 
-export const Products = () => {
+export const Products = React.memo(() => {
   const dispatch = useDispatch();
-  const products = useSelector(({ products: { items } }) => items);
+  const { items } = useSelector(({ products }) => products);
 
   const currentCategory = useSelector(
     ({ filters: { currentCategory } }) => currentCategory
   );
 
-  const sort = useSelector(({ filters: { sortBy } }) => sortBy);
+  const { sortBy } = useSelector(({ filters }) => filters);
 
   React.useEffect(() => {
-    dispatch(fetchProducts(currentCategory, sort));
-  }, [dispatch, currentCategory, sort]);
+    dispatch(fetchProducts(currentCategory, sortBy));
+  }, [dispatch, currentCategory, sortBy]);
 
   return (
     <div className={s.content}>
-      {products.map((product) => (
+      {items.map((product) => (
         <ProductCart key={product.id} {...product} />
       ))}
     </div>
   );
-};
+});

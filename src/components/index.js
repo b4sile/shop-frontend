@@ -8,3 +8,4 @@ export { Price } from './price';
 export { Button } from './button';
 export { Images } from './images';
 export { Block } from './block';
+export { VerifyAccount } from './verifyAccount';
