@@ -4,6 +4,7 @@ import {
   filtersReducer,
   productsReducer,
   usersReducer,
+  cartReducer,
 } from '../slices';
 
 export const store = configureStore({
@@ -12,5 +13,6 @@ export const store = configureStore({
     filters: filtersReducer,
     products: productsReducer,
     user: usersReducer,
+    cart: cartReducer,
   },
 });

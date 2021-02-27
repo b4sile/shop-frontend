@@ -17,3 +17,10 @@ export {
   fetchUserData,
   clearUser,
 } from './usersSlice';
+
+export {
+  default as cartReducer,
+  addCartItem,
+  fetchCartItems,
+  fetchAddCartItem,
+} from './cartSlice';

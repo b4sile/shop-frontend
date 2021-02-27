@@ -11,16 +11,25 @@ import {
   FormHelperText,
   Button as MuiButton,
   Fab,
+  Tooltip,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
+import { addCartItem, fetchAddCartItem } from '../slices';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const Product = () => {
   const [productMeta, setProductMeta] = React.useState(null);
-  const [count, setCount] = React.useState(0);
+  const [quantity, setCount] = React.useState(0);
   const [product, setProduct] = React.useState(null);
   const { id } = useParams();
   const history = useHistory();
+  const dispatch = useDispatch();
+  const currentCartQuantity = useSelector(
+    ({ cart: { items } }) =>
+      productMeta && items[productMeta.id] && items[productMeta.id].quantity
+  );
+  const cartId = useSelector(({ cart: { cart } }) => cart && cart.id);
 
   React.useEffect(() => {
     productsApi
@@ -32,12 +41,12 @@ export const Product = () => {
   }, [id]);
 
   const onAdd = () => {
-    setCount((count) => count + 1);
+    setCount((quantity) => quantity + 1);
   };
 
   const onRemove = () => {
-    if (count > 1) {
-      setCount((count) => count - 1);
+    if (quantity > 1) {
+      setCount((quantity) => quantity - 1);
     }
   };
 
@@ -51,12 +60,32 @@ export const Product = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('submit');
+    if (cartId) {
+      dispatch(fetchAddCartItem(productMeta.id, quantity, cartId));
+    } else {
+      dispatch(
+        addCartItem({
+          id: productMeta.id,
+          quantity,
+        })
+      );
+    }
   };
 
-  console.log(productMeta);
   const { title, description, price, discount, product_meta, images } =
     product || {};
+
+  const disabledSubmit =
+    !productMeta ||
+    !quantity ||
+    (productMeta && productMeta.quantity === currentCartQuantity) ||
+    quantity + currentCartQuantity > productMeta.quantity;
+
+  const tooltipTitle = !productMeta
+    ? 'Пожалуйста, выберите размер.'
+    : disabledSubmit
+    ? 'Вы не можете добавить такое количество товара.'
+    : '';
 
   return (
     <div className={s.wrapper}>
@@ -99,21 +128,35 @@ export const Product = () => {
                     </FormHelperText>
                   )}
                   <div className={s.count}>
-                    <Fab disabled={count <= 1} onClick={onRemove} size="small">
+                    <Fab
+                      disabled={quantity <= 1}
+                      onClick={onRemove}
+                      size="small"
+                    >
                       <RemoveIcon />
                     </Fab>
-                    <div>{count}</div>
+                    <div>{quantity}</div>
                     <Fab
-                      disabled={!productMeta || productMeta.quantity === count}
+                      disabled={
+                        !productMeta || productMeta.quantity === quantity
+                      }
                       onClick={onAdd}
                       size="small"
                     >
                       <AddIcon />
                     </Fab>
                   </div>
-                  <Button type="submit" className={s.button}>
-                    Добавить в корзину
-                  </Button>
+                  <Tooltip title={tooltipTitle} arrow>
+                    <span>
+                      <Button
+                        disabled={disabledSubmit}
+                        type="submit"
+                        className={s.button}
+                      >
+                        Добавить в корзину
+                      </Button>
+                    </span>
+                  </Tooltip>
                 </FormControl>
               </form>
             ) : (

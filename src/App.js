@@ -3,16 +3,24 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import s from './App.module.scss';
 import { StylesProvider } from '@material-ui/core/styles';
 import { Home, NoMatch, Catalog, Cart, Auth, Product } from './pages';
-import { fetchUserData } from './slices';
-import { useDispatch } from 'react-redux';
+import { fetchUserData, fetchCartItems } from './slices';
+import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
   const dispatch = useDispatch();
+  const { id } = useSelector(({ user: { user } }) => user);
+
   React.useEffect(() => {
     if (localStorage.getItem('token')) {
       dispatch(fetchUserData());
     }
   }, [dispatch]);
+
+  React.useEffect(() => {
+    if (id) {
+      dispatch(fetchCartItems(id));
+    }
+  }, [dispatch, id]);
 
   return (
     <Router>
