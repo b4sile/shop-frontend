@@ -33,6 +33,7 @@ export const fetchUserLogin = (userData) => (dispatch) => {
     localStorage.setItem('token', token);
     dispatch(setUser(user));
     dispatch(setAuth(true));
+    localStorage.removeItem('cart');
   });
 };
 

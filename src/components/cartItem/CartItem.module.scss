@@ -1,24 +1,59 @@
 .wrapper {
   display: flex;
   align-items: center;
+  font-size: 16px;
 }
 
 .img {
   width: 100px;
   height: 100px;
+
+  img {
+    object-fit: contain;
+  }
+}
+
+.price {
+  font-size: 16px;
 }
 
 .right {
+  margin-top: 20px;
   margin-left: auto;
   display: flex;
   align-items: center;
-  width: 300px;
+  width: 450px;
+}
+
+.count {
+  margin-top: 7px;
 }
 
 .content {
   margin-left: 20px;
+
+  h2 {
+    margin: 0;
+    margin-bottom: 10px;
+  }
 }
 
 .button {
   margin-left: auto;
+}
+
+.control {
+  margin-left: 70px;
+  text-align: center;
+  width: 130px;
+}
+
+.btns {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.quantity {
+  font-size: 20px;
 }

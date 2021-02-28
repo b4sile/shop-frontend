@@ -12,13 +12,15 @@ import {
   Button as MuiButton,
   Fab,
   Tooltip,
+  CircularProgress,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import { addCartItem, fetchAddCartItem } from '../slices';
 import { useDispatch, useSelector } from 'react-redux';
 
-export const Product = () => {
+export const Product = React.memo(() => {
+  const [isSubmit, setIsSubmit] = React.useState(false);
   const [productMeta, setProductMeta] = React.useState(null);
   const [quantity, setCount] = React.useState(0);
   const [product, setProduct] = React.useState(null);
@@ -61,7 +63,13 @@ export const Product = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (cartId) {
-      dispatch(fetchAddCartItem(productMeta.id, quantity, cartId));
+      setIsSubmit(true);
+      dispatch(fetchAddCartItem(productMeta.id, quantity, cartId))
+        .then(() => setIsSubmit(false))
+        .catch((err) => {
+          console.log(err);
+          setIsSubmit(false);
+        });
     } else {
       dispatch(
         addCartItem({
@@ -76,6 +84,7 @@ export const Product = () => {
     product || {};
 
   const disabledSubmit =
+    isSubmit ||
     !productMeta ||
     !quantity ||
     (productMeta && productMeta.quantity === currentCartQuantity) ||
@@ -83,8 +92,10 @@ export const Product = () => {
 
   const tooltipTitle = !productMeta
     ? 'Пожалуйста, выберите размер.'
-    : disabledSubmit
-    ? 'Вы не можете добавить такое количество товара.'
+    : isSubmit
+    ? 'Товар добавляется'
+    : disabledSubmit && !isSubmit
+    ? 'Вы уже добавили максимальное количество данного товара!'
     : '';
 
   return (
@@ -147,7 +158,7 @@ export const Product = () => {
                     </Fab>
                   </div>
                   <Tooltip title={tooltipTitle} arrow>
-                    <span>
+                    <span className={s.submitBtn}>
                       <Button
                         disabled={disabledSubmit}
                         type="submit"
@@ -155,6 +166,9 @@ export const Product = () => {
                       >
                         Добавить в корзину
                       </Button>
+                      {isSubmit && (
+                        <CircularProgress size={24} className={s.progress} />
+                      )}
                     </span>
                   </Tooltip>
                 </FormControl>
@@ -173,4 +187,4 @@ export const Product = () => {
       </div>
     </div>
   );
-};
+});

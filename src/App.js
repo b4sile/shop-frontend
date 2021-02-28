@@ -5,6 +5,7 @@ import { StylesProvider } from '@material-ui/core/styles';
 import { Home, NoMatch, Catalog, Cart, Auth, Product } from './pages';
 import { fetchUserData, fetchCartItems } from './slices';
 import { useDispatch, useSelector } from 'react-redux';
+import { setCartItems } from './slices';
 
 function App() {
   const dispatch = useDispatch();
@@ -19,6 +20,12 @@ function App() {
   React.useEffect(() => {
     if (id) {
       dispatch(fetchCartItems(id));
+    } else {
+      const cart = localStorage.getItem('cart');
+      if (cart) {
+        const { items: cartItems, totalCount } = JSON.parse(cart);
+        dispatch(setCartItems({ cartItems, totalCount }));
+      }
     }
   }, [dispatch, id]);
 

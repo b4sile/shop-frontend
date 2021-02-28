@@ -19,11 +19,24 @@ const { actions, reducer } = createSlice({
         };
         state.totalCount += 1;
       } else {
-        state.items[id] += quantity;
+        state.items[id].quantity++;
+      }
+      if (!state.cart) {
+        localStorage.setItem(
+          'cart',
+          JSON.stringify({ items: state.items, totalCount: state.totalCount })
+        );
       }
     },
     setCart: (state, { payload }) => {
       state.cart = payload;
+    },
+    clearCart: (state) => {
+      state.cart = null;
+    },
+    clearCartItems: (state) => {
+      state.items = {};
+      state.totalCount = 0;
     },
     setCartItems: (state, { payload: { cartItems, totalCount } }) => {
       state.items = cartItems;
@@ -31,13 +44,88 @@ const { actions, reducer } = createSlice({
     },
     plusCartItem: (state, { payload: { id, quantity } }) => {
       state.items[id].quantity = quantity;
+      if (!state.cart) {
+        localStorage.setItem(
+          'cart',
+          JSON.stringify({ items: state.items, totalCount: state.totalCount })
+        );
+      }
+    },
+    minusCartItem: (state, { payload }) => {
+      if (state.items[payload].quantity > 1) {
+        state.items[payload].quantity--;
+      }
+    },
+    removeCartItem: (state, { payload }) => {
+      delete state.items[payload];
+      state.totalCount--;
+      if (!state.cart) {
+        localStorage.setItem(
+          'cart',
+          JSON.stringify({ items: state.items, totalCount: state.totalCount })
+        );
+      }
     },
   },
 });
 
-export const { addCartItem, setCart, setCartItems, plusCartItem } = actions;
+export const {
+  addCartItem,
+  setCart,
+  setCartItems,
+  plusCartItem,
+  minusCartItem,
+  removeCartItem,
+  clearCartItems,
+  clearCart,
+} = actions;
 
 export default reducer;
+
+export const fetchUpdateCartItem = (id, quantity, cartId) => (
+  dispatch,
+  getState
+) => {
+  const {
+    cart: { items },
+  } = getState();
+  const cartData = { cartId, quantity, product_metaId: id };
+
+  const cartItemId = items[id].id;
+  const currentQuantity = items[id].quantity;
+  cartData.quantity += +currentQuantity;
+
+  return cartsApi
+    .updateCartItem(cartItemId, cartData)
+    .then(({ data: { quantity } }) => {
+      dispatch(plusCartItem({ id, quantity }));
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+export const fetchClearCartItems = (ids) => (dispatch) => {
+  return cartsApi
+    .clearCart(ids)
+    .then(() => {
+      dispatch(clearCartItems());
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+export const fetchDeleteCartItem = (itemId, id) => (dispatch) => {
+  return cartsApi
+    .deleteCartItem(itemId)
+    .then(() => {
+      dispatch(removeCartItem(id));
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
 
 export const fetchAddCartItem = (id, quantity, cartId) => (
   dispatch,
@@ -58,18 +146,7 @@ export const fetchAddCartItem = (id, quantity, cartId) => (
         console.log(err);
       });
 
-  const cartItemId = items[id].id;
-  const currentQuantity = items[id].quantity;
-  cartData.quantity += +currentQuantity;
-
-  return cartsApi
-    .updateCartItem(cartItemId, cartData)
-    .then(({ data: { quantity } }) => {
-      dispatch(plusCartItem({ id, quantity }));
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  return dispatch(fetchUpdateCartItem(id, quantity, cartId));
 };
 
 export const fetchCartItems = (userId) => (dispatch) => {
@@ -84,7 +161,7 @@ export const fetchCartItems = (userId) => (dispatch) => {
       let totalCount = 0;
       data.forEach(({ productMetumId: id, quantity, id: cartItemId }) => {
         cartItems[id] = { quantity, id: cartItemId };
-        totalCount += quantity;
+        totalCount++;
       });
       dispatch(setCartItems({ cartItems, totalCount }));
     })

@@ -12,11 +12,19 @@
   color: #363a41;
 }
 
+.current {
+  margin-left: 5px;
+}
+
 .vertical {
   flex-direction: column;
 
   .old {
     margin-left: 0;
     font-size: 14px;
+  }
+
+  .current {
+    margin-left: 0;
   }
 }

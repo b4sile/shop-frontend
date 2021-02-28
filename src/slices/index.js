@@ -23,4 +23,12 @@ export {
   addCartItem,
   fetchCartItems,
   fetchAddCartItem,
+  fetchUpdateCartItem,
+  fetchDeleteCartItem,
+  fetchClearCartItems,
+  plusCartItem,
+  clearCartItems,
+  removeCartItem,
+  clearCart,
+  setCartItems,
 } from './cartSlice';
