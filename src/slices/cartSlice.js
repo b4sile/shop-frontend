@@ -153,8 +153,8 @@ export const fetchCartItems = (userId) => (dispatch) => {
   return cartsApi
     .getCart(userId)
     .then(({ data }) => {
-      dispatch(setCart(data));
-      return cartsApi.getCartItems(data.id);
+      dispatch(setCart(data[0]));
+      return cartsApi.getCartItems(data[0].id);
     })
     .then(({ data }) => {
       const cartItems = {};

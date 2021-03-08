@@ -7,6 +7,7 @@ export {
   default as filtersReducer,
   setCurrentCategory,
   setSortBy,
+  setSearch,
 } from './filtersSlice';
 
 export { default as productsReducer, fetchProducts } from './productsSlice';

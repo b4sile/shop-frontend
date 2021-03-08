@@ -14,9 +14,11 @@ export const Products = React.memo(() => {
 
   const { sortBy } = useSelector(({ filters }) => filters);
 
+  const { search } = useSelector(({ filters }) => filters);
+
   React.useEffect(() => {
-    dispatch(fetchProducts(currentCategory, sortBy));
-  }, [dispatch, currentCategory, sortBy]);
+    dispatch(fetchProducts(currentCategory, sortBy, search));
+  }, [dispatch, currentCategory, sortBy, search]);
 
   return (
     <div className={s.content}>

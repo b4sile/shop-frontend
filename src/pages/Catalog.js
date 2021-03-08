@@ -1,12 +1,11 @@
-import { Input, InputAdornment } from '@material-ui/core';
 import React from 'react';
-import SearchIcon from '@material-ui/icons/Search';
 import s from './Catalog.module.scss';
 import {
   CatalogNav,
   Categories,
   SelectProductsSort,
   Products,
+  Search,
 } from '../components';
 
 export const Catalog = () => {
@@ -17,15 +16,7 @@ export const Catalog = () => {
           <span>Учебный </span>
           Интерет-Магазин
         </h1>
-        <Input
-          className={s.search}
-          placeholder="Поиск по названию"
-          endAdornment={
-            <InputAdornment position="end">
-              <SearchIcon />
-            </InputAdornment>
-          }
-        />
+        <Search />
         <CatalogNav />
       </div>
       <div className={s.bottom}>

@@ -28,7 +28,11 @@ export const { setAuth, setUser, clearUser } = actions;
 
 export default reducer;
 
-export const fetchUserLogin = (userData) => (dispatch) => {
+export const fetchUserLogin = (userData) => (dispatch, getState) => {
+  const {
+    cart: { items },
+  } = getState();
+  userData.cartItems = items;
   return usersApi.login(userData).then(({ data: { token, user } }) => {
     localStorage.setItem('token', token);
     dispatch(setUser(user));

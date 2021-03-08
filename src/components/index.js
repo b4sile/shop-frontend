@@ -10,3 +10,4 @@ export { Images } from './images';
 export { Block } from './block';
 export { VerifyAccount } from './verifyAccount';
 export { CartItem } from './cartItem';
+export { Search } from './search';

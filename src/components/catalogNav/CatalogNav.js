@@ -7,7 +7,7 @@ import { CartButton } from '../../components';
 import PersonIcon from '@material-ui/icons/Person';
 import { useSelector, useDispatch } from 'react-redux';
 import { Menu, MenuItem } from '@material-ui/core';
-import { clearUser, clearCart } from '../../slices';
+import { clearUser, clearCart, clearCartItems } from '../../slices';
 
 export const CatalogNav = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -22,6 +22,7 @@ export const CatalogNav = () => {
     setAnchorEl(null);
     dispatch(clearUser());
     dispatch(clearCart());
+    dispatch(clearCartItems());
   };
 
   return (

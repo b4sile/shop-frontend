@@ -144,6 +144,9 @@ export const SignUp = () => {
         <Button disabled={isSubmitting} className={s.button} type="submit">
           Зарегистрироваться
         </Button>
+        <MuiButton component={Link} to="/catalog" className={s.register}>
+          Вернуться в каталог
+        </MuiButton>
         <MuiButton className={s.register} to="/signin" component={Link}>
           Войти в аккаунт
         </MuiButton>
@@ -152,7 +155,7 @@ export const SignUp = () => {
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={openSnackBar}
         onClose={() => setOpenSnackBar(false)}
-        message="Поьзователь с данной почтой уже существует!"
+        message="Пользователь с данной почтой уже существует!"
       ></Snackbar>
     </>
   );

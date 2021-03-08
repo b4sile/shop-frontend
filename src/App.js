@@ -35,10 +35,10 @@ function App() {
         <div className={s.wrapper}>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/catalog" component={Catalog} />
-            <Route path="/products/:id" component={Product} />
-            <Route path="/cart" component={Cart} />
-            <Route path={['/signin', '/signup']} component={Auth} />
+            <Route exact path="/catalog" component={Catalog} />
+            <Route exact path="/products/:id" component={Product} />
+            <Route exact path="/cart" component={Cart} />
+            <Route exact path={['/signin', '/signup']} component={Auth} />
             <Route path="*" component={NoMatch} />
           </Switch>
         </div>

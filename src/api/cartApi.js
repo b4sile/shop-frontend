@@ -3,7 +3,9 @@ import { setAuthHeader } from '../utils';
 
 export const cartsApi = {
   getCart: (id) => {
-    return axios.get(`/api/carts/${id}`, { headers: setAuthHeader() });
+    return axios.get(`/api/carts?filter={"userId": ${id}}`, {
+      headers: setAuthHeader(),
+    });
   },
   addCartItem: (cartData) => {
     return axios.post(`/api/cart-items`, cartData, {

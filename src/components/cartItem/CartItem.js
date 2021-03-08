@@ -14,6 +14,7 @@ import {
 } from '../../slices';
 import { findImage } from '../../utils';
 import { Price } from '../../components';
+import { Link } from 'react-router-dom';
 
 export const CartItem = React.memo(({ quantity, size, product, id }) => {
   const dispatch = useDispatch();
@@ -61,7 +62,9 @@ export const CartItem = React.memo(({ quantity, size, product, id }) => {
     <div className={s.wrapper}>
       <div className={s.img}>{url ? <img src={url} alt="" /> : ''}</div>
       <div className={s.content}>
-        <h2>{title}</h2>
+        <Link to={`/products/${id}`}>
+          <h2 className={s.title}>{title}</h2>
+        </Link>
         <div>Размер: {size}</div>
         <div className={s.count}>В наличии: {quantity}</div>
         <Price

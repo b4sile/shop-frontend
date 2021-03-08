@@ -85,6 +85,9 @@ export const SignIn = () => {
           Войти
         </Button>
       </form>
+      <MuiButton component={Link} to="/catalog" className={s.register}>
+        Вернуться в каталог
+      </MuiButton>
       <MuiButton className={s.register} to="/signup" component={Link}>
         Зарегистрироваться
       </MuiButton>

@@ -23,10 +23,10 @@ export const { setProducts, setIsLoading } = actions;
 
 export default reducer;
 
-export const fetchProducts = (categoryId, sort) => (dispatch) => {
+export const fetchProducts = (categoryId, sort, search) => (dispatch) => {
   dispatch(setIsLoading(true));
   productsApi
-    .getProducts(categoryId, sort)
+    .getProducts(categoryId, sort, search)
     .then(({ data }) => {
       dispatch(setProducts(data));
       setIsLoading(false);
