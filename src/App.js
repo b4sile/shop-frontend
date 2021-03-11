@@ -38,7 +38,11 @@ function App() {
             <Route exact path="/catalog" component={Catalog} />
             <Route exact path="/products/:id" component={Product} />
             <Route exact path="/cart" component={Cart} />
-            <Route exact path={['/signin', '/signup']} component={Auth} />
+            <Route
+              exact
+              path={['/signin', '/signup', '/signup/verify']}
+              component={Auth}
+            />
             <Route path="*" component={NoMatch} />
           </Switch>
         </div>
