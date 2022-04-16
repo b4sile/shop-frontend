@@ -117,9 +117,7 @@ export const Product = React.memo(() => {
             {product_meta.length > 0 ? (
               <form onSubmit={handleSubmit}>
                 <FormControl className={s.group}>
-                  <InputLabel id="age-native-simple">
-                    Выберите размер:
-                  </InputLabel>
+                  <InputLabel id="age-native-simple">Комплектация:</InputLabel>
                   <Select
                     className={s.select}
                     value={productMeta || ''}
