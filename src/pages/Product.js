@@ -112,7 +112,7 @@ export const Product = React.memo(() => {
                 discount={discount}
                 className={s.price}
               />
-              <p className={s.description}>{description}</p>
+              <pre className={s.description}>{description}</pre>
             </div>
             {product_meta.length > 0 ? (
               <form onSubmit={handleSubmit}>
