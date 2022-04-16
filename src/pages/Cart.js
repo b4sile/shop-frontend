@@ -89,9 +89,11 @@ export const Cart = () => {
           </ul>
           <div className={s.total}>
             <div>
-              Сумма заказа: {totalPrice}₽{' '}
+              Сумма заказа: {totalPrice.toFixed(2)}₽{' '}
               {totalPriceWithoutDiscount > totalPrice && (
-                <span className={s.old}>{totalPriceWithoutDiscount}₽</span>
+                <span className={s.old}>
+                  {totalPriceWithoutDiscount.toFixed(2)}₽
+                </span>
               )}
             </div>
           </div>

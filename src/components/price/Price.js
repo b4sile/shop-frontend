@@ -17,14 +17,14 @@ export const Price = ({
         <div className={cn(s.prices, className, { [s.vertical]: isVertical })}>
           {title && <span>{title}: </span>}
           <span className={s.current}>
-            {(price - (price * discount) / 100) * quantity}₽
+            {((price - (price * discount) / 100) * quantity).toFixed(2)}₽
           </span>
-          <span className={s.old}>{price * quantity}₽</span>
+          <span className={s.old}>{(price * quantity).toFixed(2)}₽</span>
         </div>
       ) : (
         <div className={cn(s.prices, className, { [s.vertical]: isVertical })}>
           {title && <span>{title}: </span>}
-          <span className={s.current}>{price * quantity}₽</span>
+          <span className={s.current}>{(price * quantity).toFixed(2)}₽</span>
         </div>
       )}
     </div>
